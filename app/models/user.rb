@@ -51,4 +51,8 @@ class User
   #relations
   has_many :items
 
+  def owns?(id)
+    items.where(:_id => id).first ? true : false
+  end
+
 end

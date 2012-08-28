@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_filter :restrict_to_owner, :only => [:update, :destroy]
   # GET /items
   # GET /items.json
   def index
@@ -63,10 +64,13 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.update_attributes(params[:item])
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        format.html { redirect_to @item, notice: "#{@item.name} was successfully updated." }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html do
+          flash[:alert] = 'Something went wrong while updating an item.'
+          render action: "edit"
+        end
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
@@ -83,4 +87,12 @@ class ItemsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  public
+
+    def restrict_to_owner
+      unless current_user.owns?(params[:id])
+        redirect_to root_path
+      end
+    end
 end

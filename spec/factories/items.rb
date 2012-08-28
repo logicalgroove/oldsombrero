@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :item do
-    name "MyString"
-    price 1
-    period "MyString"
-    description "MyText"
+    name "Old Sombrero"
+    price 10
+    period "day"
+    description "Still good"
   end
 end
