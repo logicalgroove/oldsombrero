@@ -12,4 +12,19 @@ describe Item do
     item.should be_valid
   end
 
+  it "should not be created with blank name" do
+    item = @user.items.new(@valid_item_attr.merge(:name => ''))
+    item.should_not be_valid
+  end
+
+  it "should not be created with blank price" do
+    item = @user.items.new(@valid_item_attr.merge(:price => ''))
+    item.should_not be_valid
+  end
+
+  it "should not be created with blank period" do
+    item = @user.items.new(@valid_item_attr.merge(:period => ''))
+    item.should_not be_valid
+  end
+
 end

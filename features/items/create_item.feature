@@ -8,3 +8,9 @@ Feature: Create Item
         And I am logged in
       When I create a new valid item
       Then I should see an item created message
+
+    Scenario: User creates an invalid item
+      Given I exist as a user
+        And I am logged in
+      When I create a new invalid item
+      Then I should see an item not created message

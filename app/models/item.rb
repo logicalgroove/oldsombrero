@@ -7,4 +7,10 @@ class Item
 
   #relations
   belongs_to :user
+
+  #validations
+  validates :name, presence: true
+  validates :price, presence: true
+  validates :period, presence: true
+
 end
