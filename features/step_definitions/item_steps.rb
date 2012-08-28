@@ -74,3 +74,20 @@ end
 Then /^I should not see an "(.*?)" link$/ do |link|
   page.should_not have_link(link)
 end
+
+When /^I go to item show page$/ do
+  visit item_path(@item)
+end
+
+Then /^I should see an item$/ do
+  page.should have_content(@item.name)
+end
+
+When /^I go to items index page$/ do
+  visit items_path
+end
+
+Then /^I should see list of items$/ do
+  page.should have_content(@item.name)
+  page.should have_content(@another_item.name)
+end
