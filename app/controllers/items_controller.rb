@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   before_filter :restrict_to_owner, :only => [:update, :destroy]
+  before_filter :rescue_empty_tag_params, :only => [:create, :update]
+  before_filter :find_or_create_tags, :only => [:create, :update]
   # GET /items
   # GET /items.json
   def index
@@ -95,4 +97,13 @@ class ItemsController < ApplicationController
         redirect_to root_path
       end
     end
+
+    def rescue_empty_tag_params
+      params[:item][:tag_names] = params[:item][:tag_names] ? params[:item][:tag_names] : ''
+    end
+
+    def find_or_create_tags
+      params[:item][:tag_ids] = Tag.find_or_create_tags(params[:item][:tag_names])
+    end
+
 end

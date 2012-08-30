@@ -1,5 +1,5 @@
 def valid_item_params
-  {:name => 'Sombrero', :price => 5, :period => 'day', :description => 'This sombrero may be old, but it kicks some serious hats.'}
+  {:name => 'Sombrero', :price => 5, :period => 'day', :description => 'This sombrero may be old, but it kicks some serious hats.', :tags => '#mexico, #hats #sansaparilla'}
 end
 
 def new_item_params
@@ -12,6 +12,7 @@ When /^I create a new valid item$/ do
   fill_in "Price", :with => valid_item_params[:price]
   fill_in "Period", :with => valid_item_params[:period]
   fill_in "Description", :with => valid_item_params[:description]
+  fill_in "Tags", :with => valid_item_params[:tags]
   click_button "Create"
 end
 

@@ -18,5 +18,8 @@
   .field
     = f.label :description
     = f.text_area :description
+  .field
+    = label_tag :tags, 'Tags', :for => 'item_tag_names'
+    = text_field_tag 'item[tag_names]', @item.tag_names
   .actions
     = f.submit
