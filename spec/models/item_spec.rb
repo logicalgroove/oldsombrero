@@ -30,18 +30,30 @@ describe Item do
   end
 
   it "should have tags if created with tags" do
-    item = @user.items.new(@valid_item_attr)
+    item = @user.items.create(@valid_item_attr)
     item.tags << @sombrero_tag
     item.tags << @mexico_tag
-    item.save
     item.tags.count.should equal 2
   end
 
   it "should belongs to tag if created with tag" do
-    item = @user.items.new(@valid_item_attr)
+    item = @user.items.create(@valid_item_attr)
     item.tags << @sombrero_tag
-    item.save
     @sombrero_tag.items.count.should equal 1
+  end
+
+  it "should return search result with existing tag" do
+    item = @user.items.create(@valid_item_attr)
+    item.tags << @sombrero_tag
+    items = Item.search_by_tags_name(['sombrero'])
+    items.count.should_not equal 0
+  end
+
+  it "should not return search result with not existing tag" do
+    item = @user.items.create(@valid_item_attr)
+    item.tags << @sombrero_tag
+    items = Item.search_by_tags_name(['this_hat_never_existed'])
+    items.should be_nil
   end
 
 end

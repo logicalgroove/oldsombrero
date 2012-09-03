@@ -23,4 +23,9 @@ class Item
     end.strip
   end
 
+  def self.search_by_tags_name(tags_array)
+    tag_ids = Tag.where(:name.in => tags_array).collect {|t| t.id}
+    tag_ids.empty? ? nil : where(:tag_ids.in => tag_ids)
+  end
+
 end

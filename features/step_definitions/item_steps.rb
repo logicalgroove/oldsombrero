@@ -6,6 +6,10 @@ def new_item_params
   {:name => 'Truck Cap', :price => 50, :period => 'moth', :description => 'Feel the wind.'}
 end
 
+def existing_tag
+  Tag.create(:name => 'evil_hat')
+end
+
 When /^I create a new valid item$/ do
   visit '/items/new'
   fill_in "Name", :with => valid_item_params[:name]
@@ -66,6 +70,7 @@ end
 When /^There is another user with it's own item$/ do
   @another_user = FactoryGirl.create(:user, :email => 'another_user@example.com')
   @another_item = FactoryGirl.create(:item, :name => 'Evil Hat', :user => @another_user)
+  @another_item.tags << existing_tag
 end
 
 When /^I go to another's item page$/ do

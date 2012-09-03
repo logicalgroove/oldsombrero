@@ -12,3 +12,6 @@
   - else
     %li
       = link_to 'Sign up', new_user_registration_path
+= form_tag search_path, :method => :get do
+  = text_field_tag :search
+  = submit_tag 'Search'
