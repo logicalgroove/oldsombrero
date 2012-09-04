@@ -50,22 +50,38 @@ class User
 
   #relations
   has_many :items
-  has_and_belongs_to_many :following, class_name: 'User', inverse_of: :followers, autosave: true
+  has_and_belongs_to_many :following, class_name: 'User', inverse_of: :followers
   has_and_belongs_to_many :followers, class_name: 'User', inverse_of: :following
+  has_and_belongs_to_many :tags
 
   def owns?(id)
     items.where(:_id => id).first ? true : false
   end
 
-  def follow!(user)
-    if self.id != user.id && !self.following.include?(user)
+  def follow_user(user)
+    if self.id != user.id and !self.following.include?(user)
       self.following << user
     end
   end
 
-  def unfollow!(user)
+  def unfollow_user(user)
     self.following.delete(user)
   end
 
+  def follows_user?(user)
+    self.following.include?(user)
+  end
+
+  def follow_tag(tag)
+    self.tags << tag
+  end
+
+  def unfollow_tag(tag)
+    self.tags.delete(tag)
+  end
+
+  def follows_tag?(tag)
+    self.tags.include?(tag)
+  end
 
 end

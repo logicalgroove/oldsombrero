@@ -68,17 +68,17 @@ Then /^I should see an item not updated message$/ do
 end
 
 When /^There is some user with it's own item$/ do
-  @another_user = FactoryGirl.create(:user, :email => 'another_user@example.com')
-  @another_item = FactoryGirl.create(:item, :name => 'Evil Hat', :user => @another_user)
-  @another_item.tags << existing_tag
+  @some_user = FactoryGirl.create(:user, :email => 'some_user@example.com')
+  @some_item = FactoryGirl.create(:item, :name => 'Evil Hat', :user => @some_user)
+  @some_item.tags << existing_tag
 end
 
 When /^I go to some user item page$/ do
-  visit item_path(@another_item)
+  visit item_path(@some_item)
 end
 
 When /^I should see an item$/ do
-  page.should have_content(@another_item.name)
+  page.should have_content(@some_item.name)
 end
 
 Then /^I should not see an "(.*?)" link$/ do |link|
@@ -99,19 +99,19 @@ end
 
 Then /^I should see list of items$/ do
   page.should have_content(@item.name)
-  page.should have_content(@another_item.name)
+  page.should have_content(@some_item.name)
 end
 
 Then /^I should see some user items$/ do
-  page.should have_content(@another_item.name)
+  page.should have_content(@some_item.name)
 end
 
 When /^I go to tag page$/ do
-  visit tag_path(@another_item.tags.first.name)
+  visit tag_path(@some_item.tags.first.name)
 end
 
 When /^I go to some user page$/ do
-  visit user_path(@another_user)
+  visit user_path(@some_user)
 end
 
 When /^I create a new valid item with image$/ do

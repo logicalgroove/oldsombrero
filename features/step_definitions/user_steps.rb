@@ -189,3 +189,31 @@ Then /^I should see my name$/ do
   create_user
   page.should have_content @user[:name]
 end
+
+#following
+
+When /^I click follow link$/ do
+  click_link 'Follow'
+end
+
+Then /^I should see following tag message$/ do
+  page.should have_content 'following tag'
+end
+
+Then /^I should see following user message$/ do
+  page.should have_content 'following user'
+end
+
+Given /^I follow that tag already$/ do
+  visit tag_path(@some_item.tags.first.name)
+  click_link 'Follow'
+end
+
+Then /^I don't see a follow link$/ do
+  page.should_not have_link 'Follow'
+end
+
+Given /^I follow that user already$/ do
+  visit user_path(@some_user)
+  click_link 'Follow'
+end

@@ -100,4 +100,29 @@ describe User do
 
   end
 
+  describe "following" do
+
+    before(:each) do
+      @current_user = FactoryGirl.create(:user)
+      @some_user = FactoryGirl.create(:user, :email => 'some_email@example.com')
+      @sombrero_tag = FactoryGirl.create(:tag, :name => 'sombrero')
+      @valid_item_attr = {:name => 'Sombrero', :price => 5, :period => 'day', :description => 'This sombrero may be old, but it kicks some serious hats.'}
+    end
+
+    it "should increase feed items when followed user creates new item" do
+      @current_user.follow_user(@some_user)
+      @some_user.items.create(@valid_item_attr)
+      @current_user.items.count.should eq 1
+    end
+
+    it "should increase feed items when new item with followed tag is created" do
+      @current_user.follow_tag(@sombrero_tag)
+      @some_user_item = @some_user.items.new(@valid_item_attr)
+      @some_user_item.tags << @sombrero_tag
+      @some_user_item.save
+      @current_user.items.count.should eq 1
+    end
+
+  end
+
 end
