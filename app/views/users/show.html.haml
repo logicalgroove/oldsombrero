@@ -1,5 +1,17 @@
-%h3 User
-%p
-  User: #{@user.name}
-%p
-  Email: #{@user.email if @user.email}
+- if @user
+  %h3 User
+  %p
+    User: #{@user.name}
+  %p
+    Email: #{@user.email if @user.email}
+  .items
+    - @user.items.each do |item|
+      .item
+        = item.name
+        = item.price
+        = item.user.name
+        .tags
+          - item.tags.each do |tag|
+            .tag= tag.name
+- else
+  There is no such user

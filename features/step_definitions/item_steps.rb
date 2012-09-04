@@ -109,3 +109,7 @@ end
 When /^I go to tag page$/ do
   visit tag_path(@another_item.tags.first.name)
 end
+
+When /^I go to some user page$/ do
+  visit user_path(@another_user)
+end

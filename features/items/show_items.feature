@@ -33,3 +33,9 @@ Feature: Show Items
         And There is some user with it's own item
       When I go to tag page
       Then I should see some user items
+
+    Scenario: Visitor can see list of some user items
+      Given I am not logged in
+        And There is some user with it's own item
+      When I go to some user page
+      Then I should see some user items
