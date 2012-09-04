@@ -1,0 +1,13 @@
+- if @tag
+  .items
+    - @tag.items.each do |item|
+      .item
+        = item.name
+        = item.price
+        = item.user.name
+        .tags
+          - item.tags.each do |tag|
+            .tag= tag.name
+- else
+  Not found any items for
+  = @tag_name

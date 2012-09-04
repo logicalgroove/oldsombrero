@@ -13,7 +13,7 @@
   %b Description:
   = @item.description
 
-- if current_user.owns?(@item.id)
+- if current_user and current_user.owns?(@item.id)
   = link_to 'Edit', edit_item_path(@item)
 \|
 = link_to 'Back', items_path

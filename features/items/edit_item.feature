@@ -20,6 +20,6 @@ Feature: Edit Item
     Scenario: User updates another's item
       Given I exist as a user
         And I am logged in
-        And There is another user with it's own item
-      When I go to another's item page
+        And There is some user with it's own item
+      When I go to some user item page
       Then I should not see an "Edit" link

@@ -7,6 +7,7 @@ Rails3MongoidDevise::Application.routes.draw do
   devise_for :users
   resources :items
   resources :users, :only => [:show, :index]
-  get '/tags' => 'search#index', :as => 'search'
+  get '/search' => 'search#index', :as => 'search'
+  get '/tag/:name' => 'tags#show', :as => 'tag'
   root :to => "home#index"
 end

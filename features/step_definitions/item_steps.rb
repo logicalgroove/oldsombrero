@@ -67,25 +67,29 @@ Then /^I should see an item not updated message$/ do
   page.should have_content 'Something went wrong'
 end
 
-When /^There is another user with it's own item$/ do
+When /^There is some user with it's own item$/ do
   @another_user = FactoryGirl.create(:user, :email => 'another_user@example.com')
   @another_item = FactoryGirl.create(:item, :name => 'Evil Hat', :user => @another_user)
   @another_item.tags << existing_tag
 end
 
-When /^I go to another's item page$/ do
+When /^I go to some user item page$/ do
   visit item_path(@another_item)
+end
+
+When /^I should see an item$/ do
+  page.should have_content(@another_item.name)
 end
 
 Then /^I should not see an "(.*?)" link$/ do |link|
   page.should_not have_link(link)
 end
 
-When /^I go to item show page$/ do
+When /^I go to my item show page$/ do
   visit item_path(@item)
 end
 
-Then /^I should see an item$/ do
+Then /^I should see my item$/ do
   page.should have_content(@item.name)
 end
 
@@ -96,4 +100,12 @@ end
 Then /^I should see list of items$/ do
   page.should have_content(@item.name)
   page.should have_content(@another_item.name)
+end
+
+Then /^I should see some user items$/ do
+  page.should have_content(@another_item.name)
+end
+
+When /^I go to tag page$/ do
+  visit tag_path(@another_item.tags.first.name)
 end
