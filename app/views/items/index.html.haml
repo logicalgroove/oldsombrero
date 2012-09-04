@@ -12,13 +12,10 @@
 
   - @items.each do |item|
     %tr
-      %td= item.name
+      %td= link_to item.name, item
       %td= item.price
       %td= item.period
       %td= item.description
-      %td= link_to 'Show', item
-      %td= link_to 'Edit', edit_item_path(item)
-      %td= link_to 'Destroy', item, :confirm => 'Are you sure?', :method => :delete
 
 %br
 

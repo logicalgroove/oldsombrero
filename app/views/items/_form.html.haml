@@ -21,5 +21,11 @@
   .field
     = label_tag :tags, 'Tags', :for => 'item_tag_names'
     = text_field_tag 'item[tag_names]', @item.tag_names
+  .field
+    - unless @item.image.blank?
+      = image_tag @item.image.url
+    - else
+      = f.hidden_field :image_cache
+    = f.file_field :image
   .actions
     = f.submit

@@ -5,6 +5,8 @@ gem 'jquery-rails'
 gem 'mongoid', '>= 3.0.5'
 gem 'devise', '>= 2.1.2'
 gem 'haml', '~> 3.1.7'
+gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 group :development do
   gem 'nifty-generators'

@@ -113,3 +113,18 @@ end
 When /^I go to some user page$/ do
   visit user_path(@another_user)
 end
+
+When /^I create a new valid item with image$/ do
+  visit '/items/new'
+  fill_in 'Name', :with => valid_item_params[:name]
+  fill_in 'Price', :with => valid_item_params[:price]
+  fill_in 'Period', :with => valid_item_params[:period]
+  fill_in 'Description', :with => valid_item_params[:description]
+  fill_in 'Tags', :with => valid_item_params[:tags]
+  attach_file('item_image', "#{Rails.root}/features/fixtures/test.jpg")
+  click_button 'Create'
+end
+
+Then /^I should see a created item with image$/ do
+  page.should have_selector '.image'
+end

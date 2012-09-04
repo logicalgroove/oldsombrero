@@ -5,8 +5,9 @@ class Item
   field :price, type: Integer
   field :period, type: String
   field :description, type: String
+  mount_uploader  :image, ImageUploader
 
-  attr_accessible :name, :price, :period, :description, :tag_ids
+  attr_accessible :name, :price, :period, :description, :tag_ids, :image, :image_cache
 
   #relations
   belongs_to :user

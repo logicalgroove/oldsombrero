@@ -39,6 +39,12 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    carrierwave (0.6.2)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+    carrierwave-mongoid (0.1.0)
+      carrierwave
+      mongoid
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
     coffee-rails (3.2.2)
@@ -188,6 +194,8 @@ PLATFORMS
 
 DEPENDENCIES
   capybara (>= 1.1.2)
+  carrierwave
+  carrierwave-mongoid
   coffee-rails (~> 3.2.1)
   cucumber-rails (>= 1.3.0)
   database_cleaner (>= 0.8.0)
