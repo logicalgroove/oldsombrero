@@ -1,11 +1,13 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  field :provider, type: String
+  field :uid, type: String
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
 
   ## Database authenticatable
@@ -13,7 +15,6 @@ class User
   field :encrypted_password, :type => String, :default => ""
 
   validates_presence_of :email
-  validates_presence_of :encrypted_password
   
   ## Recoverable
   field :reset_password_token,   :type => String
@@ -53,6 +54,38 @@ class User
   has_and_belongs_to_many :following, class_name: 'User', inverse_of: :followers
   has_and_belongs_to_many :followers, class_name: 'User', inverse_of: :following
   has_and_belongs_to_many :tags
+
+  def self.from_omniauth(auth)
+    user = where(:provider => auth.provider, :uid => auth.uid).first
+    unless user
+      user = User.create({:provider => auth.provider, :uid => auth.uid, :name => auth.info.name, :email => auth.info.email}, :without_protection => true)
+    else
+      user
+    end
+  end
+
+  def self.new_with_session(params, session)
+    if session['devise.user_attributes']
+      new(session['devise.user_attributes'], :without_protection => true) do |user|
+        user.attributes = params
+        user.valid?
+      end
+    else
+      super
+    end
+  end
+
+  def password_required?
+    super && provider.blank?
+  end
+
+  def update_with_password(params, *options)
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end
 
   def owns?(id)
     items.where(:_id => id).first ? true : false

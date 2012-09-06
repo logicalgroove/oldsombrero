@@ -4,7 +4,7 @@ Rails3MongoidDevise::Application.routes.draw do
     root :to => 'home#index'
   end
 
-  devise_for :users
+  devise_for :users, :controllers => {:omniauth_callbacks => 'omniauth_callbacks'}
   resources :items
   resources :users, :only => [:show, :index]
   get '/search' => 'search#index', :as => 'search'
