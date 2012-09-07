@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 
 gem 'jquery-rails'
-gem 'mongoid', '>= 3.1.0', :git => 'git://github.com/mongoid/mongoid.git'
+gem 'mongoid', '>= 3.0.5'
 gem 'devise', '>= 2.1.2'
 gem 'omniauth-facebook'
 gem 'haml', '~> 3.1.7'

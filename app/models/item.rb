@@ -31,12 +31,12 @@ class Item
   end
 
   def pull_to_following_users_feed
-    self.pull_to_tags_followers
-    self.pull_to_user_followers
+    pull_to_tags_followers
+    pull_to_user_followers
   end
 
   def pull_to_tags_followers
-    self.tags.each do |tag|
+    tags.each do |tag|
       tag.followers.each do |follower|
         follower.items << self
       end
@@ -44,7 +44,7 @@ class Item
   end
 
   def pull_to_user_followers
-    self.user.followers.each do |follower|
+    user.followers.each do |follower|
       follower.items << self
     end
   end
