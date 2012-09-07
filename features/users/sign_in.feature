@@ -17,6 +17,11 @@ Feature: Sign in
       When I return to the site
       Then I should be signed in
 
+    #Scenario: User signs in with facebook
+    #  Given I do not exist as a user
+    #  When I login with Facebook
+    #  Then I see a successful sign in message
+
     Scenario: User enters wrong email
       Given I exist as a user
       And I am not logged in

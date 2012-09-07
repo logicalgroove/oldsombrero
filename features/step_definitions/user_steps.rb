@@ -1,8 +1,13 @@
 ### UTILITY METHODS ###
+def set_facebook_omniauth
+  credentials = {:provider => :facebook, :uuid => '65', :info => {:email => 'machete@yourgarganta.mx', :name => 'Denny Trejo'}}
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({'uid' => credentials[:uuid], 'info' => {'email' => credentials[:info][:email], 'name' => credentials[:info][:name]}})
+end
 
 def create_visitor
-  @visitor ||= { :name => "Testy McUserton", :email => "example@example.com",
-    :password => "please", :password_confirmation => "please" }
+  @visitor ||= { :name => 'Testy McUserton', :email => 'example@example.com',
+    :password => 'please', :password_confirmation => 'please' }
 end
 
 def find_user
@@ -216,4 +221,10 @@ end
 Given /^I follow that user already$/ do
   visit user_path(@some_user)
   click_link 'Follow'
+end
+
+When /^I login with Facebook$/ do
+  set_facebook_omniauth
+  visit root_path
+  click_link 'Login with Facebook'
 end

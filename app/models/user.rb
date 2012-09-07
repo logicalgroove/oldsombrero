@@ -15,7 +15,8 @@ class User
   field :encrypted_password, :type => String, :default => ""
 
   validates_presence_of :email
-  
+  validates_presence_of :name
+
   ## Recoverable
   field :reset_password_token,   :type => String
   field :reset_password_sent_at, :type => Time
@@ -46,7 +47,6 @@ class User
   # run 'rake db:mongoid:create_indexes' to create indexes
   index({ email: 1 }, { unique: true, background: true })
   field :name, :type => String
-  validates_presence_of :name
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at
 
   #relations
@@ -56,11 +56,11 @@ class User
   has_and_belongs_to_many :tags
 
   def self.from_omniauth(auth)
-    user = where(:provider => auth.provider, :uid => auth.uid).first
-    unless user
-      user = User.create({:provider => auth.provider, :uid => auth.uid, :name => auth.info.name, :email => auth.info.email}, :without_protection => true)
-    else
-      user
+    where(auth.slice(:provider, :uid)).find_or_create_by do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.name = auth.info.name
+      user.email = auth.info.email
     end
   end
 
